@@ -7,7 +7,11 @@
     <link rel="stylesheet" href="styles/main.css">
 </head>
 <body>
-    <!-- Note the type="module" here -->
-    <script type="module" src="scripts/script.js"></script>
+    <!-- Include Three.js from a CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- Include GLTFLoader.js from a CDN or your scripts directory -->
+    <script src="scripts/GLTFLoader.js"></script>
+    <!-- Your script.js now does not need import statements -->
+    <script src="scripts/script.js"></script>
 </body>
 </html>
