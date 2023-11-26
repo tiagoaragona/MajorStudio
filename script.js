@@ -1,37 +1,45 @@
+// styles/script.js
+import * as THREE from 'three';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+
 let scene, camera, renderer, model;
 
-function init() {
-    scene = new THREE.Scene();
-    camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    camera.position.z = 5;
+init();
+animate();
 
+function init() {
+    // Scene
+    scene = new THREE.Scene();
+
+    // Camera
+    camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    camera.position.set(0, 1, 2);
+
+    // Renderer
     renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(window.devicePixelRatio);
     document.body.appendChild(renderer.domElement);
 
     // Lighting
-    const ambientLight = new THREE.AmbientLight(0x404040);
+    const ambientLight = new THREE.AmbientLight(0xcccccc, 0.4);
     scene.add(ambientLight);
 
-    // GLTF/GLB Loader
-    const loader = new THREE.GLTFLoader();
-    loader.load('models/yourmodel.glb', function (gltf) {
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+    directionalLight.position.set(1, 1, 0).normalize();
+    scene.add(directionalLight);
+
+    // GLTF Loader
+    const loader = new GLTFLoader();
+    loader.load('models/ObeliscoCompleto.glb', function (gltf) {
         model = gltf.scene;
         scene.add(model);
-        animate(); // Start the animation loop
     }, undefined, function (error) {
         console.error(error);
     });
 
+    // Handle window resize
     window.addEventListener('resize', onWindowResize, false);
-}
-
-function animate() {
-    requestAnimationFrame(animate);
-    if (model) {
-        model.rotation.y += 0.005;
-    }
-    renderer.render(scene, camera);
 }
 
 function onWindowResize() {
@@ -40,4 +48,10 @@ function onWindowResize() {
     renderer.setSize(window.innerWidth, window.innerHeight);
 }
 
-init();
+function animate() {
+    requestAnimationFrame(animate);
+    if (model) {
+        model.rotation.y += 0.005; // Rotates the model on its y-axis
+    }
+    renderer.render(scene, camera);
+}
