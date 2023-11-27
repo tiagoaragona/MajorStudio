@@ -1,4 +1,6 @@
-// Assuming THREE and GLTFLoader are available globally from the included scripts
+// Import THREE and GLTFLoader
+import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.125.0/build/three.module.js';
+import { GLTFLoader } from './GLTFLoader.js';
 
 let scene, camera, renderer, model;
 
@@ -28,7 +30,7 @@ function init() {
     scene.add(directionalLight);
 
     // GLTF Loader
-    const loader = new THREE.GLTFLoader();
+    const loader = new GLTFLoader();
     loader.load('models/ObeliscoCompleto.glb', function (gltf) {
         model = gltf.scene;
         scene.add(model);
@@ -39,7 +41,7 @@ function init() {
     // Handle window resize
     window.addEventListener('resize', onWindowResize, false);
 }
-}
+
 function onWindowResize() {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
@@ -50,23 +52,6 @@ function animate() {
     requestAnimationFrame(animate);
     if (model) {
         model.rotation.y += 0.005;
-    }
-    renderer.render(scene, camera);
-}
-    // Handle window resize
-    window.addEventListener('resize', onWindowResize, false);
-}
-
-function onWindowResize() {
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-}
-
-function animate() {
-    requestAnimationFrame(animate);
-    if (model) {
-        model.rotation.y += 0.005; // Rotates the model on its y-axis
     }
     renderer.render(scene, camera);
 }
