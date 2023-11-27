@@ -1,4 +1,5 @@
-// styles/script.js
+// Assuming THREE and GLTFLoader are available globally from the included scripts
+
 let scene, camera, renderer, model;
 
 init();
@@ -27,14 +28,31 @@ function init() {
     scene.add(directionalLight);
 
     // GLTF Loader
-    const loader = new GLTFLoader();
+    const loader = new THREE.GLTFLoader();
     loader.load('models/ObeliscoCompleto.glb', function (gltf) {
         model = gltf.scene;
         scene.add(model);
     }, undefined, function (error) {
-        console.error(error);
+        console.error('An error happened', error);
     });
 
+    // Handle window resize
+    window.addEventListener('resize', onWindowResize, false);
+}
+
+function onWindowResize() {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+}
+
+function animate() {
+    requestAnimationFrame(animate);
+    if (model) {
+        model.rotation.y += 0.005;
+    }
+    renderer.render(scene, camera);
+}
     // Handle window resize
     window.addEventListener('resize', onWindowResize, false);
 }
