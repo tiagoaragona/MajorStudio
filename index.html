@@ -8,10 +8,13 @@
 </head>
 <body>
     <!-- Include Three.js from a CDN -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <!-- Include GLTFLoader.js from your scripts directory -->
-    <script src="scripts/GLTFLoader.js"></script>
-    <!-- Your script.js now does not need import statements -->
-    <script src="scripts/script.js"></script>
+    <script type="module">
+        import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.125.0/build/three.module.js';
+        window.THREE = THREE; // Make it available globally if needed by other scripts
+    </script>
+    <!-- Include GLTFLoader.js as a module -->
+    <script type="module" src="scripts/GLTFLoader.js"></script>
+    <!-- Your script.js as a module -->
+    <script type="module" src="scripts/script.js"></script>
 </body>
 </html>
