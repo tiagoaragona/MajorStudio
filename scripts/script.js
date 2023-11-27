@@ -1,5 +1,6 @@
-// Import THREE and GLTFLoader
+// Import THREE from a CDN
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.125.0/build/three.module.js';
+// Import GLTFLoader from your local scripts directory
 import { GLTFLoader } from './GLTFLoader.js';
 
 let scene, camera, renderer, model;
